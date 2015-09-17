@@ -15,7 +15,7 @@
 
   <tbody>
     <% @wikis.each do |wiki| %>
-      <tr>
+      <tr id="<%= dom_id(wiki) %>">
         <td><%= wiki.title %></td>
         <td><%= wiki.body %></td>
         <td><%= wiki.private %></td>

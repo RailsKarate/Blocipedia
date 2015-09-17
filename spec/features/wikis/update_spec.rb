@@ -11,7 +11,7 @@ describe "Updating wikis" do
 		
 		visit "/wikis"
 		within "#wiki_#{wiki.id}" do
-		click_link "Edit"
+			click_link "Edit"
 		end
 
 		fill_in "Title", with: options[:title]

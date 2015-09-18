@@ -5,8 +5,7 @@ RSpec.describe "wikis/edit", type: :view do
     @wiki = assign(:wiki, Wiki.create!(
       :title => "MyString",
       :body => "MyText",
-      :private => false,
-      :user => nil
+      :private => false
     ))
   end
 
@@ -20,8 +19,6 @@ RSpec.describe "wikis/edit", type: :view do
       assert_select "textarea#wiki_body[name=?]", "wiki[body]"
 
       assert_select "input#wiki_private[name=?]", "wiki[private]"
-
-      assert_select "input#wiki_user_id[name=?]", "wiki[user_id]"
     end
   end
 end

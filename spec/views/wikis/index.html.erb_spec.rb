@@ -6,14 +6,12 @@ RSpec.describe "wikis/index", type: :view do
       Wiki.create!(
         :title => "Title",
         :body => "MyText",
-        :private => false,
-        :user => nil
+        :private => false
       ),
       Wiki.create!(
         :title => "Title",
         :body => "MyText",
-        :private => false,
-        :user => nil
+        :private => false
       )
     ])
   end
@@ -23,6 +21,5 @@ RSpec.describe "wikis/index", type: :view do
     assert_select "tr>td", :text => "Title".to_s, :count => 2
     assert_select "tr>td", :text => "MyText".to_s, :count => 2
     assert_select "tr>td", :text => false.to_s, :count => 2
-    assert_select "tr>td", :text => nil.to_s, :count => 2
   end
 end

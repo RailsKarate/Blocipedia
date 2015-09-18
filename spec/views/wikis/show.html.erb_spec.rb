@@ -5,8 +5,7 @@ RSpec.describe "wikis/show", type: :view do
     @wiki = assign(:wiki, Wiki.create!(
       :title => "Title",
       :body => "MyText",
-      :private => false,
-      :user => nil
+      :private => false
     ))
   end
 
@@ -15,6 +14,6 @@ RSpec.describe "wikis/show", type: :view do
     expect(rendered).to match(/Title/)
     expect(rendered).to match(/MyText/)
     expect(rendered).to match(/false/)
-    expect(rendered).to match(//)
+
   end
 end

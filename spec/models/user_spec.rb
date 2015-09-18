@@ -8,7 +8,10 @@ describe User do
  			reset_password_token: "pedro30365"
  		}
  	}
- 	
+ 	context "relationships" do
+		it {should have_many(:wikis)}
+	end
+
  	context "validations" do
  		let(:user) {User.new(valid_attributes)}
 

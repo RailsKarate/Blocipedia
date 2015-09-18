@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  resources :wikis
-  
+  resources :wikis do
+    get 'list', :on => :collection
+  end
+
   root 'wikis#index'
+
+  
   devise_for :users
 
 

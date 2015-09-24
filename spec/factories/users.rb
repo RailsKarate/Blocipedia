@@ -4,5 +4,9 @@ FactoryGirl.define do
     sequence(:email) { |n| "user#{n}@Blocipedia.com" }
     password "pedro19092"
     password_confirmation "pedro19092"
+
+    trait :admin do
+    	role 'admin'
+    end
   end
 end

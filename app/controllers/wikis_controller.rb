@@ -1,10 +1,10 @@
 class WikisController < ApplicationController
   before_action :set_wiki, only: [:show, :edit, :update, :destroy]
-
   # GET /wikis
   # GET /wikis.json
   def index
     @wikis = Wiki.all
+    
   end
 
   def list
@@ -29,7 +29,6 @@ class WikisController < ApplicationController
   # POST /wikis.json
   def create
     @wiki = current_user.wikis.new(wiki_params)
-
     respond_to do |format|
       if @wiki.save
         format.html { redirect_to @wiki, notice: 'Wiki was successfully created.' }
@@ -45,6 +44,7 @@ class WikisController < ApplicationController
   # PATCH/PUT /wikis/1.json
   def update
     respond_to do |format|
+      authorize @wiki
       if @wiki.update(wiki_params)
         format.html { redirect_to @wiki, notice: 'Wiki was successfully updated.' }
         format.json { render :show, status: :ok, location: @wiki }

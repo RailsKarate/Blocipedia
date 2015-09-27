@@ -1,6 +1,6 @@
 require 'rails_helper'
 describe "User Role" do
-	let(:user) { create(:user, :admin) }
+	let(:user) { create(:user, :user) }
 		
 	it "add to user role admin" do
 		login_as(user, scope: :user)

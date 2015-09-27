@@ -5,8 +5,8 @@ FactoryGirl.define do
     password "pedro19092"
     password_confirmation "pedro19092"
 
-    trait :admin do
-    	role 'admin'
+    trait :user do
+    	role 'user'
     end
   end
 end

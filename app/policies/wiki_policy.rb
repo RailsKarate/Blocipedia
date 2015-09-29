@@ -7,6 +7,6 @@ class WikiPolicy
   	end
  
 	def update?
-	    @wiki.user == @current_user
+	  @wiki.user == @current_user
 	end
 end

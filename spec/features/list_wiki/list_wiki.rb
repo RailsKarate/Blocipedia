@@ -5,7 +5,7 @@ describe "List wikis" do
 	let(:user) { create(:user) }
 
 	before do
-		login_as(user, :scope => :user)
+		login_as(user, scope: :user)
 	end
 
 	it "listing the wikis to user" do

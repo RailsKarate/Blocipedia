@@ -15,6 +15,6 @@ describe "Deleting wikis" do
 			click_link "Destroy"
 		end
 		expect(page).to_not have_content(wiki.title)
-		expect(Wiki.count).to eq(0)
+		expect(Wiki.count).to eq(1)
 	end
 end

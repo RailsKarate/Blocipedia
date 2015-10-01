@@ -10,6 +10,7 @@ describe "Updating wikis" do
 		options[:private] ||= false
 		
 		visit "/wikis"
+		click_link "List Wikis User"
 		
 		within "#wiki_#{wiki.id}" do
 			click_link "Edit"

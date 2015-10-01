@@ -8,9 +8,10 @@ describe "List wikis" do
 		login_as(user, scope: :user)
 	end
 
-	it "listing the wikis to user" do
+	it "listing the wikis to user and Edit his Wikis" do
 		visit "/wikis"
 		click_link "List Wikis User"
 		expect(page).to have_content("List Wikis User")
+		expect(page).to have_content("Edit")
 	end
 end

@@ -18,7 +18,7 @@
         <td><%= wiki.title %></td>
         <td><%= wiki.body %></td>
         <td><%= wiki.private %></td>
-        <% if current_user.role == 'user' %>
+        <% if current_user.role == 'admin' %>
         <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
         <% end %>
         <td><%= link_to 'Show', wiki %></td>

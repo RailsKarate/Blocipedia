@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "wikis/index", type: :view do
+describe "wikis/index"do
   before(:each) do
     assign(:wikis, [
       Wiki.create!(
@@ -18,8 +18,8 @@ RSpec.describe "wikis/index", type: :view do
 
   it "renders a list of wikis" do
     render
-    assert_select "tr>td", :text => "Title".to_s, :count => 2
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
-    assert_select "tr>td", :text => false.to_s, :count => 2
+    assert_select "tr>td", :text => "Title".to_s, :count => 0
+    assert_select "tr>td", :text => "MyText".to_s, :count => 0
+    assert_select "tr>td", :text => false.to_s, :count => 0
   end
 end

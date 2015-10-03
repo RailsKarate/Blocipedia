@@ -28,47 +28,47 @@ describe "creating wiki" do
 	end
 
 	it "displays an error when the wiki has no title" do
-		expect(Wiki.count).to eq(1)
+		expect(Wiki.count).to eq(0)
 		
 		create_wiki title: ""
 		expect(page).to have_content("error")
-		expect(Wiki.count).to eq(1)
+		expect(Wiki.count).to eq(0)
 
 		visit "/wikis"
 		expect(page).to_not have_content("This is what I am doing today.")
 	end
 
 	it "displays an error when the wiki has title less than 4 characters" do
-		expect(Wiki.count).to eq(1)
+		expect(Wiki.count).to eq(0)
 		
 		create_wiki title: "hi"
 
 		expect(page).to have_content("error")
-		expect(Wiki.count).to eq(1)
+		expect(Wiki.count).to eq(0)
 
 		visit "/wikis"
 		expect(page).to_not have_content("This is what I am doing today.")
 	end
 
 	it "displays an error when the wiki has no Body" do
-		expect(Wiki.count).to eq(1)
+		expect(Wiki.count).to eq(0)
 		
 		create_wiki title: "Grocery wiki", body: ""
 
 		expect(page).to have_content("error")
-		expect(Wiki.count).to eq(1)
+		expect(Wiki.count).to eq(0)
 
 		visit "/wikis"
 		expect(page).to_not have_content("Grocery wiki")
 	end
 
 	it "displays an error when the wiki has Body less than 6 characters" do
-		expect(Wiki.count).to eq(1)
+		expect(Wiki.count).to eq(0)
 		
 		create_wiki title: "Grocery wiki", body: "food"
 
 		expect(page).to have_content("error")
-		expect(Wiki.count).to eq(1)
+		expect(Wiki.count).to eq(0)
 
 		visit "/wikis"
 		expect(page).to_not have_content("Grocery wiki")

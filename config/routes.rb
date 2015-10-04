@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   end
 
   root 'wikis#index'
-
   
+  resources :charges
   devise_for :users
 
 

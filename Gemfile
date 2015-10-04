@@ -15,6 +15,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'pundit'
 gem 'stripe'
+gem 'haml'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -16,8 +16,7 @@ describe "upgrade user" do
 	it "Upgrade to premium account" do
 		visit "/wikis"
 		click_link "Upgrade to premium account"
-
-		click_on 'Pay with Card'
+		find(:css, '.stripe-button-el').click
 		fill_in "Card Number", with: '3566002020360505'
 		fill_in	"exp-month", with: "10"
 		fill_in "exp-year", with: "2015"

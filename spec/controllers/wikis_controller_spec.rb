@@ -23,7 +23,7 @@ RSpec.describe WikisController, type: :controller do
   describe "GET #index" do
     context "logged in" do 
       it "assigns all wikis the user as @wikis" do
-        wiki = user.wikis.create! valid_attributes
+        wiki = Wiki.create! valid_attributes
         get :index, {}, valid_session
         expect(assigns(:wikis)).to eq([wiki])
         expect(assigns(:wikis).map(&:user)).to eq([user])
@@ -47,7 +47,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new wiki as @wiki" do
-      wiki = user.wikis.create! valid_attributes
+      wiki = Wiki.create! valid_attributes
       get :new, {}, valid_session
       expect(assigns(:wiki)).to be_a_new(Wiki)
       expect(assigns(:wiki).user).to eq(user)
@@ -56,7 +56,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested wiki as @wiki" do
-      wiki = user.wikis.create! valid_attributes
+      wiki = Wiki.create! valid_attributes
       get :edit, {:id => wiki.to_param}, valid_session
       expect(assigns(:wiki)).to eq(wiki)
       expect(assigns(:wiki).user).to eq(user)
@@ -110,20 +110,20 @@ RSpec.describe WikisController, type: :controller do
       }
 
       it "updates the requested wiki" do
-        wiki = user.wikis.create! valid_attributes
+        wiki = Wiki.create! valid_attributes
         put :update, {:id => wiki.to_param, :wiki => new_attributes}, valid_session
         wiki.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested wiki as @wiki" do
-        wiki = user.wikis.create! valid_attributes
+        wiki = Wiki.create! valid_attributes
         put :update, {:id => wiki.to_param, :wiki => valid_attributes}, valid_session
         expect(assigns(:wiki)).to eq(wiki)
       end
 
       it "redirects to the wiki" do
-        wiki = user.wikis.create! valid_attributes
+        wiki = Wiki.create! valid_attributes
         put :update, {:id => wiki.to_param, :wiki => valid_attributes}, valid_session
         expect(response).to redirect_to(wiki)
       end
@@ -131,13 +131,13 @@ RSpec.describe WikisController, type: :controller do
 
     context "with invalid params" do
       it "assigns the wiki as @wiki" do
-        wiki = user.wikis.create! valid_attributes
+        wiki = Wiki.create! valid_attributes
         put :update, {:id => wiki.to_param, :wiki => invalid_attributes}, valid_session
         expect(assigns(:wiki)).to eq(wiki)
       end
 
       it "re-renders the 'edit' template" do
-        wiki = user.wikis.create! valid_attributes
+        wiki = Wiki.create! valid_attributes
         put :update, {:id => wiki.to_param, :wiki => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
@@ -146,14 +146,14 @@ RSpec.describe WikisController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested wiki" do
-      wiki = user.wikis.create! valid_attributes
+      wiki = Wiki.create! valid_attributes
       expect {
         delete :destroy, {:id => wiki.to_param}, valid_session
       }.to change(Wiki, :count).by(-1)
     end
 
     it "redirects to the wikis list" do
-      wiki = user.wikis.create! valid_attributes
+      wiki = Wiki.create! valid_attributes
       delete :destroy, {:id => wiki.to_param}, valid_session
       expect(response).to redirect_to(wikis_url)
     end

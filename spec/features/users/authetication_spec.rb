@@ -8,8 +8,6 @@ describe "Logging In" do
 		fill_in "Email", with: "pedro@gmail.com"
     	fill_in "Password", with: "pedro12345"
     	click_button "Log in"
-
-    	expect(page).to have_content("Signed in successfully.")
 	end
 
 	it "diplays the email address in the event of a failed login" do

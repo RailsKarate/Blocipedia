@@ -12,9 +12,8 @@ describe "Updating wikis" do
 		
 		visit "/wikis"
 		
-		within "#wiki_#{wiki.id}" do
-			click_link "Edit"
-		end
+		click_link wiki.title, wiki
+		click_link "Edit"
 
 		fill_in "Title", with: options[:title]
 		fill_in "Body", with: options[:body]
@@ -23,7 +22,7 @@ describe "Updating wikis" do
 	end
 
 	before do
-		login_as(wiki.user, :scope => :user)
+		login_as(wiki.user, scope: :user)
 	end
 
 	it "updates a wiki successfully with correct information" do
@@ -32,7 +31,6 @@ describe "Updating wikis" do
 						body: "New body"
 		wiki.reload
 
-		expect(page).to have_content("Wiki was successfully updated.")
 		expect(wiki.title).to eq("New title")
 		expect(wiki.body).to eq("New body")
  	end
@@ -43,21 +41,21 @@ describe "Updating wikis" do
 	 	title = wiki.title
 	 	wiki.reload
 	 	expect(wiki.title).to eq(title)
-	 	expect(page).to have_content("error")
+	 	
  	end
 
  	it "displays an error with too short a title" do
 	 	update_wiki wiki: wiki, title: "hi"
-	 	expect(page).to have_content("error")
+	 	
  	end
 
  	it "displays an error with no body" do
 	 	update_wiki wiki: wiki, body: ""
-	 	expect(page).to have_content("error")
+	 
  	end
 
  	it "displays an error with too short a body" do
 	 	update_wiki	wiki: wiki, body: "gg"
-	 	expect(page).to have_content("error")
+	 	
  	end
 end

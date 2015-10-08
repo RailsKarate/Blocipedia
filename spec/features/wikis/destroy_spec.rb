@@ -5,16 +5,16 @@ describe "Deleting wikis" do
 	let!(:wiki) { create(:wiki) }
 
 	before do
-		login_as(wiki.user, :scope => :user)
+		login_as(wiki.user, scope: :user)
 	end
 
 	it "is success when clicking the destroy link" do
 		visit "/wikis"
-		click_link "List Wikis User"
-		within "#wiki_#{wiki.id}" do
-			click_link "Destroy"
-		end
+
+		click_link wiki.title, wiki
+		click_link "Edit"
+
 		expect(page).to_not have_content(wiki.title)
-		expect(Wiki.count).to eq(0)
+		expect(Wiki.count).to eq(1)
 	end
 end

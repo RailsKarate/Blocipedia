@@ -10,8 +10,8 @@ describe "User Role" do
 		expect(page).to have_content(user.email)
 	end
 
-	it "User admin can edit all wikis" do
-		user = create(:user, :admin)
+	it "User standard can edit all wikis" do
+		user = create(:user, :standard)
 		login_as(user, scope: :user)
 
 		wiki = create(:wiki)
@@ -19,8 +19,7 @@ describe "User Role" do
 		visit "/wikis"
 		expect(page).to have_content(user.email)
 
-		within "#wiki_#{wiki.id}" do
-			click_link "Edit"
-		end
+		click_link wiki.title, wiki
+		click_link "Edit"
 	end
 end

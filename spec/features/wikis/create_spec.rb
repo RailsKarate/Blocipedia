@@ -8,14 +8,15 @@ describe "creating wiki" do
 		options[:description] ||= "This is my wiki."
 		options[:private] ||= false
 		
+
 		visit "/wikis"
-		click_link "New Wiki"
-		expect(page).to have_content("New Wiki")
+		click_link "Create A New Wiki"
+		expect(page).to have_content("Create A New Wiki")
 
 		fill_in "Title", with: options[:title]
 		fill_in "Body", with: options[:body]
 
-		click_button "Create Wiki"
+		click_button "Save"
 	end
 
 	before do
@@ -31,7 +32,6 @@ describe "creating wiki" do
 		expect(Wiki.count).to eq(0)
 		
 		create_wiki title: ""
-		expect(page).to have_content("error")
 		expect(Wiki.count).to eq(0)
 
 		visit "/wikis"
@@ -43,7 +43,6 @@ describe "creating wiki" do
 		
 		create_wiki title: "hi"
 
-		expect(page).to have_content("error")
 		expect(Wiki.count).to eq(0)
 
 		visit "/wikis"
@@ -55,7 +54,6 @@ describe "creating wiki" do
 		
 		create_wiki title: "Grocery wiki", body: ""
 
-		expect(page).to have_content("error")
 		expect(Wiki.count).to eq(0)
 
 		visit "/wikis"
@@ -67,7 +65,6 @@ describe "creating wiki" do
 		
 		create_wiki title: "Grocery wiki", body: "food"
 
-		expect(page).to have_content("error")
 		expect(Wiki.count).to eq(0)
 
 		visit "/wikis"

@@ -1,13 +1,9 @@
 class WikisController < ApplicationController
 
   def index
-    @wikis = policy_scope(Wiki)
-    
+    @wikis = policy_scope(Wiki)  
   end
 
-  def list
-    @wikis = current_user.wikis
-  end
   # GET /wikis/1
   # GET /wikis/1.json
   def show

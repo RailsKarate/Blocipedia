@@ -5,7 +5,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    user.present?
+    record.private? || user.present?
   end
 
   def create?
@@ -49,10 +49,11 @@ class WikiPolicy < ApplicationPolicy
            end
          end
        else # this is the lowly standard user
-         all_wikis = scope.all
+          all_wikis = scope.all
+         wikis = []
          all_wikis.each do |wiki|
-           if wiki.public? || wiki.collaborated_users.include?(user)
-             wikis << wiki # only show standard users public wikis and private wikis they are a collaborator on
+           if wiki.private == false
+             wikis << wiki # only  show standard users public wikis and private wikis they are a collaborator on
            end
          end
        end

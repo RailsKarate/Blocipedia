@@ -14,15 +14,18 @@ describe "upgrade user" do
 	end
 
 	it "Upgrade to premium account" do
+		StripeMock.start_client
 		visit "/wikis"
 		click_link "Upgrade to premium account"
-		find(:css, '.stripe-button-el').click
+		
+		click_on 'Pay with Card'
 		fill_in "Card Number", with: '3566002020360505'
 		fill_in	"exp-month", with: "10"
 		fill_in "exp-year", with: "2015"
-		fill_in "CVC", with: nil
+		fill_in "CVC", with: "123"
 		
 		click_button "Pay $15.00"
+		StripeMock.stop_client
 	end
 
 end

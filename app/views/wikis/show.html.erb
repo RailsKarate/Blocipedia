@@ -1,18 +1,10 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @wiki.title %>
-</p>
-
-<p>
-  <strong>Body:</strong>
-  <%= @wiki.body %>
-</p>
-
-<p>
-  <strong>Private:</strong>
-  <%= @wiki.private %>
-</p>
+<div class="media">
+	<h1><%= @wiki.title %></h1>
+	<p><%= @wiki.body %></p>
+	<%= link_to "Edit", edit_wiki_path(@wiki) %>
+	<%= link_to "Delete", @wiki, method: :delete, data: { confirm: 'Are you sure you want to delete this wiki?' } %>
+	<%= render partial: 'public_private' %>
+	<small>Post created <%= time_ago_in_words(@wiki.created_at)%> ago. Last updated on <%= @wiki.updated_at%>.</small>
+</div>
 
 <%= link_to 'Back', wikis_path %>

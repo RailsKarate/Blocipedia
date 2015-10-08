@@ -43,16 +43,17 @@ class ChargesController < ApplicationController
 
   def validate_role
     if current_user
-      if current_user.role == 'user'
+      if current_user.role == 'standard'
         true
       else
-        redirect_to wikis_path 
-         flash[:notice] = "the user have role Admin or Premium"    
+        redirect_to user_path(current_user)
+        flash[:error] = "#{current_user.email} is already a Premium Member"
       end
     else
       redirect_to new_user_session_path
       flash[:notice] = "You must be signed in to perform that action"
     end
   end
+
 
 end

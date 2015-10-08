@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   
   resources :charges
   devise_for :users
+  resources :users
 
 
   

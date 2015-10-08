@@ -1,33 +1,27 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Wikis</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
-      <th>Private</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
+<div class="container">
+  <h1 class="text-center">All Wikis</h1>
+    <div class="col-md-12 text-center">
+        <%= link_to "Create A New Wiki", new_wiki_path %>
+    </div>
+</div>
+</br>
+  <table class="table">
+  <% @wikis.each do |wiki| %>
   <tbody>
-    <% @wikis.each do |wiki| %>
-      <tr id="<%= dom_id(wiki) %>">
-        <td><%= wiki.title %></td>
-        <td><%= wiki.body %></td>
-        <td><%= wiki.private %></td>
-        <% if current_user.role == 'admin' %>
-        <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
-        <% end %>
-        <td><%= link_to 'Show', wiki %></td>
-      </tr>
-    <% end %>
+    <tr>
+      <td>
+      <%= link_to wiki.title, wiki %>
+      <% if wiki.private == false %>
+        <button type="button" >Public Wiki</button>
+      <% else %>
+        <button type="button">Private Wiki</button>
+      <% end %>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
-</table>
-
-<br>
+  </table>
+</div>
 
 <%= link_to 'New Wiki', new_wiki_path %>
 <%= link_to 'List Wikis User', list_wikis_path %>

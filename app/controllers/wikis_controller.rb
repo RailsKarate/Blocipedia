@@ -1,7 +1,7 @@
 class WikisController < ApplicationController
 
   def index
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
     
   end
 
@@ -17,7 +17,7 @@ class WikisController < ApplicationController
 
   # GET /wikis/new
   def new
-    @wiki = current_user.wikis.new
+    @wiki = Wiki.new
   end
 
   # GET /wikis/1/edit
@@ -29,42 +29,44 @@ class WikisController < ApplicationController
   # POST /wikis
   # POST /wikis.json
   def create
-    @wiki = current_user.wikis.new(wiki_params)
+    @wiki = Wiki.new(wiki_params)
     authorize @wiki
-    respond_to do |format|
-      if @wiki.save
-        format.html { redirect_to @wiki, notice: 'Wiki was successfully created.' }
-        format.json { render :show, status: :created, location: @wiki }
-      else
-        format.html { render :new }
-        format.json { render json: @wiki.errors, status: :unprocessable_entity }
-      end
+    
+    if @wiki.save
+      flash[:notice] = "Wiki article was saved."
+      redirect_to @wiki
+    else
+      flash[:error] = "There was an error saving the wiki. Please try again."
+      render :new
     end
   end
 
   # PATCH/PUT /wikis/1
   # PATCH/PUT /wikis/1.json
   def update
-    respond_to do |format|
-     
-      if @wiki.update(wiki_params)
-        format.html { redirect_to @wiki, notice: 'Wiki was successfully updated.' }
-        format.json { render :show, status: :ok, location: @wiki }
-      else
-        format.html { render :edit }
-        format.json { render json: @wiki.errors, status: :unprocessable_entity }
-      end
+    @wiki = Wiki.find(params[:id])
+    
+    if @wiki.update_attributes(wiki_params)
+     flash[:notice] = "Wiki article was updated."
+     redirect_to @wiki
+    else
+     flash[:error] = "There was an error saving the wiki. Please try again."
+     render :edit
     end
   end
 
   # DELETE /wikis/1
   # DELETE /wikis/1.json
   def destroy
-    @wiki.destroy
+   @wiki = Wiki.find(params[:id])
     authorize @wiki
-    respond_to do |format|
-      format.html { redirect_to wikis_url, notice: 'Wiki was successfully destroyed.' }
-      format.json { head :no_content }
+    
+    if @wiki.destroy
+     flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
+     redirect_to @wiki
+    else
+     flash[:error] = "There was an error deleting the wiki."
+     render :show
     end
   end
 

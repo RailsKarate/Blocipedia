@@ -3,42 +3,37 @@ class ChargesController < ApplicationController
   before_action :validate_role
 
   def new
-    @stripe_btn_data = {
-      key: "#{ Rails.configuration.stripe[:publishable_key] }",
-      description: "Premium Account",
-      amount: default_amount
-    }
   end
 
   def create
-    #Set default ammount to $15 for Premium Account
-    @amount = 15_00
+
+    @amount = 1500
+    
+    # Creates a Stripe Customer object, for associating with the charge
     customer = Stripe::Customer.create(
       email: current_user.email,
-      card:  params[:stripeToken]
-    )
+      card: params[:stripeToken]
+      )
 
     charge = Stripe::Charge.create(
-      customer: customer.id,
-      amount: default_amount,
-      description: "Premium Account - #{current_user.email}",
+      customer: customer.id, # Note -- not user_id in app
+      amount: @amount,
+      description: "Premium Membership - #{current_user.email}",
       currency: 'usd'
-    )
+      )
 
-    # flash[:success] = "#{current_user.email}, is now a Premium Member!"
-    current_user.upgrade_account
-    redirect_to user_path(current_user)
+    if current_user.update(role: 'premium')
+      flash[:success] = "Thank you for upgrading to Premium, #{current_user.email}!"
+      redirect_to edit_user_registration_path
+    else
+      flash[:error] = "There was an error upgrading your account."
+      redirect_to edit_user_registration_path
+    end
 
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_charge_path
-  end
-
-  private
-
-  def default_amount
-    amount = 15_00
-    amount
+    # Stripe will send back CardErrors, with friendly messages
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      redirect_to new_charge_path
   end
 
   def validate_role
@@ -46,7 +41,7 @@ class ChargesController < ApplicationController
       if current_user.role == 'standard'
         true
       else
-        redirect_to user_path(current_user)
+        redirect_to wikis_path
         flash[:error] = "#{current_user.email} is already a Premium Member"
       end
     else

@@ -9,10 +9,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :wikis
 
-  def upgrade_account
-    self.update_attributes(role: 'premium')
-  end
+  has_many :wikis, through: :collaborators
+  has_many :collaborators
   
 end

@@ -1,6 +1,9 @@
 class Wiki < ActiveRecord::Base
   belongs_to :user
 
+  has_many :collaborators
+  has_many :collaborated_users, through: :collaborators, source: :user
+
   validates :title, presence:true
   validates :title, length:{minimum: 4}
   validates :body, presence:true

@@ -49,10 +49,10 @@ class WikiPolicy < ApplicationPolicy
            end
          end
        else # this is the lowly standard user
-          all_wikis = scope.all
+         all_wikis = scope.all
          wikis = []
          all_wikis.each do |wiki|
-           if wiki.private == false
+           if wiki.private == false || wiki.collaborated_users.include?(user)
              wikis << wiki # only  show standard users public wikis and private wikis they are a collaborator on
            end
          end

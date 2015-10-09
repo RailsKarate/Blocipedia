@@ -12,5 +12,9 @@ FactoryGirl.define do
     trait :standard do
     	role 'standard'
     end
+
+    trait :premium do
+        role 'premium'
+    end
   end
 end

@@ -16,6 +16,7 @@ gem 'devise'
 gem 'pundit'
 gem 'stripe'
 gem 'haml'
+gem 'redcarpet'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -46,8 +47,6 @@ group :test do
 	gem 'capybara', '~> 2.4'
 	gem 'capybara-email', '~> 2.4.0'
 	gem 'shoulda-matchers'
-  gem 'stripe-ruby-mock'
-  gem 'thin'
 end
 
 group :development do

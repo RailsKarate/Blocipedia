@@ -14,6 +14,7 @@
             <li><%= link_to "Blocipedia", wikis_path %></li>
           <% else %>
           <li><%= link_to "Blocipedia", root_path %></li>
+          
           <% end %>
         <div class="nav navbar-nav navbar-right">
           <% if current_user %>
@@ -25,12 +26,24 @@
                   <li><%= link_to "Upgrade your account", new_charge_path %></li>
                 </ul>
               </li>
-            <% else %>
-              <%= link_to "Log In", new_user_session_path %> or
-              <%= link_to "Sign Up", new_user_registration_path %>
+            
+              
             <% end %>
         </div>   
       </ul>
+      <% if flash[:notice] %>
+        <div class="alert alert-success">     
+        <%= flash[:notice] %>
+        </div>
+    <% elsif flash[:error] %>
+        <div class="alert alert-danger">
+        <%= flash[:error] %>
+        </div>
+    <% elsif flash[:alert] %>
+        <div class="alert-warning">
+        <%= flash[:alert] %>
+        </div>
+    <% end %>
 
   <%= yield %>
   </div>

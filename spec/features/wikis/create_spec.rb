@@ -5,7 +5,7 @@ describe "creating wiki" do
 
 	def create_wiki(options={})
 		options[:title] ||= "My Wiki"
-		options[:description] ||= "This is my wiki."
+		options[:body] ||= "This is my wiki."
 		options[:private] ||= false
 		
 

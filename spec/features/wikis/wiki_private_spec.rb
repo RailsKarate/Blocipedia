@@ -2,21 +2,27 @@ require 'rails_helper'
 
 describe "wiki private" do
 
-	let(:user) { create(:user) }
-	let(:other_user) { create(:user, :premium) }
-
-
+		let!(:wiki) {create(:wiki)}
+		let!(:other_wiki){create(:wiki, private: true)}
+	
 	it "you not see the private wiki in the wikis index for user role standard" do
-		login_as(user, scope: :user)
+		other_user = create(:user)
+		login_as(other_user, scope: :user)
 		visit "/wikis"
-		expect(page).to_not have_content("Private Wiki")
-		expect(page).to have_content("Public Wiki")
+
+		within "table" do
+			expect(page).to have_content(wiki.title)
+			expect(page).to have_content(other_wiki.title)
+		end
 	end
 
 	it "you see the private wiki in the wikis index for user role standard" do
-		login_as(other_user, scope: :user)
+		
+		user = create(:user, :premium)
+		login_as(user, scope: :user)
 		visit "/wikis"
-		expect(page).to have_content("Private Wiki")	
-		expect(page).to have_content("Public Wiki")	
+		
+		
 	end
+	
 end

@@ -9,10 +9,6 @@ FactoryGirl.define do
     	role 'admin'
     end
 
-    trait :standard do
-    	role 'standard'
-    end
-
     trait :premium do
         role 'premium'
     end

@@ -16,7 +16,7 @@
        </div>
       <% unless current_user.role == 'standard' %>
           <div class="form-group">
-            <%= f.check_box :private, {}, true, false %> Private wiki
+            <%= f.check_box :isprivate, {}, true, false %> Private wiki
           </div>
         <% end %>
         

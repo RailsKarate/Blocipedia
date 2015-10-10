@@ -11,8 +11,8 @@ class Wiki < ActiveRecord::Base
   before_save :default_wiki_public
 
 def default_wiki_public
-    if self.private.nil?
-      self.update_attribute :private, false
+    if self.isprivate.nil?
+      self.update_attribute :isprivate, false
     end
   end
 

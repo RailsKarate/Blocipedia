@@ -55,7 +55,7 @@ class WikisController < ApplicationController
   # DELETE /wikis/1.json
   def destroy
    @wiki = Wiki.find(params[:id])
-    authorize @wiki
+   authorize @wiki
     
     if @wiki.destroy
      flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
@@ -69,6 +69,6 @@ class WikisController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def wiki_params
-      params.require(:wiki).permit(:title, :body, :private)
+      params.require(:wiki).permit(:title, :body, :isprivate)
     end
 end

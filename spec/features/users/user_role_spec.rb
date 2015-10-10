@@ -11,7 +11,7 @@ describe "User Role" do
 	end
 
 	it "User standard can edit all wikis" do
-		user = create(:user, :standard)
+		user = create(:user)
 		login_as(user, scope: :user)
 
 		wiki = create(:wiki)

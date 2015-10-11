@@ -6,8 +6,7 @@ describe "creating wiki" do
 	def create_wiki(options={})
 		options[:title] ||= "My Wiki"
 		options[:body] ||= "This is my wiki."
-		options[:private] ||= false
-		
+		options[:isprivate] ||= false		
 
 		visit "/wikis"
 		click_link "Create A New Wiki"
@@ -20,7 +19,7 @@ describe "creating wiki" do
 	end
 
 	before do
-		login_as(user, :scope => :user)
+		login_as(user, scope: :user)
 	end
 
 	it "redirects to the wiki index page on success" do

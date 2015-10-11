@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe WikisController, type: :controller do
 
   let(:valid_attributes) {
-    skip("title" => "My title", "body" => "My body example", "private" => false)
+    skip("title" => "My title", "body" => "My body example", "isprivate" => false)
   }
 
   let(:invalid_attributes) {

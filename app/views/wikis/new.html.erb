@@ -11,14 +11,18 @@
          <%= f.label :body %>
          <%= markdown f.text_area :body %>
        </div>
+
+       <% if current_user.role == 'admin' || current_user.role == 'premium'%>
+          <div class="form-group">
+            <%= f.label :Private %>
+            <%= f.check_box :isprivate %>
+          </div>
+        <% end %>
+
        <div class="form-group">
          <%= f.submit "Save" %>
        </div>
-      <% unless current_user.role == 'standard' %>
-          <div class="form-group">
-            <%= f.check_box :isprivate, {}, true, false %> Private wiki
-          </div>
-        <% end %>
+      
         
      <% end %>
    </div>

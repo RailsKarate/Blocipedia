@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :wikis, through: :collaborators
-  has_many :collaborators
+  has_many :wikis
+  has_many :collaborations
+  has_many :collaborated_wikis, through: :collaborations, source: :wiki
   
 end

@@ -5,7 +5,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    user.present?
+    record.isprivate == false || user.present?
   end
 
   def create?
@@ -38,34 +38,26 @@ class WikiPolicy < ApplicationPolicy
     end
 
     def resolve
-       wikis = []
-       if user.role == 'admin'
-         wikis = scope.all # if the user is an admin, show them all the wikis
-       elsif user.role == 'premium'
-         all_wikis = scope.all
-         all_wikis.each do |wiki|
-           if wiki.private == false || wiki.user == user || wiki.collaborated_users.include?(user) # || wiki.public? 
-             wikis << wiki # if the user is premium, only show them public wikis, or that private wikis they created, or private wikis they are a collaborator on
-           end
-         end
-       else # this is the lowly standard user
-         all_wikis = scope.all
-         wikis = []
-         all_wikis.each do |wiki|
-           if wiki.private == false || wiki.collaborated_users.include?(user)
-             wikis << wiki # only  show standard users public wikis and private wikis they are a collaborator on
-           end
-         end
-       end
-       wikis # return the wikis array we've built up
-     end
-   end
-
-    # def resolve
-    #   if user.role == 'admin' or user.role == 'premium'
-    #     scope.all
-    #   else 
-    #     scope.where(:public => true)
-    #   end
-    # end
+      wikis = []
+      if user.present? && user.role == 'admin'
+        wikis = scope.all
+      elsif user.present? && user.role == 'premium'
+        all_wikis = scope.all
+        all_wikis.each do |wiki|
+          if wiki.isprivate == false|| wiki.user == user || wiki.collaborated_users.include?(user)
+            wikis << wiki
+          end
+        end
+      else
+        all_wikis = scope.all
+        wikis = []
+        all_wikis.each do |wiki|
+          if wiki.isprivate == false || wiki.collaborated_users.include?(user)
+            wikis << wiki
+          end
+        end
+      end
+      wikis
+    end
+  end
 end

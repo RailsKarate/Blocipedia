@@ -1,39 +1,36 @@
 class CollaboratorsController < ApplicationController
-  def index
-  end
+   before_action :set_wiki
 
   def new
     @collaborator = Collaborator.new
     @user = User.all
-    @wiki = Wiki.find(params[:wiki_id])
   end
-
+  
   def create
-    @wiki = Wiki.find(params[:wiki_id])
-    @collaborator = Collaborator.new(user_id: params[:user_id], wiki_id: params[:wiki_id])
-
+    @collaborator = Collaborator.new(wiki_id: @wiki.id, user_id: params[:user_id])
     if @collaborator.save
-      flash[:notice] = "You added a collaborator for your wiki."
-      redirect_to @wiki
+      flash[:notice] = "Your wiki was updated."
+      redirect_to edit_wiki_path(@wiki)
     else
-      flash[:error] = "There was an error adding this collaborator. Please try again."
+      flash[:error] = "There was an error updating your wiki. Please try again."
       render :new
     end
   end
 
-  def show
-     @collaborator = Collaborator.find(params[:wiki])
+  def destroy
+    @collaborator = Collaborator.find(params[:id])
+    if @collaborator.destroy
+      flash[:notice] = "Wiki was sucessfully updated."
+      redirect_to edit_wiki_path(@wiki)
+    else
+      flash[:error] = "There was an error. Please try again."
+      render :show
+    end
   end
 
-  def destroy
-    @wiki = Wiki.find(params[:wiki_id])
-    @collaborator = Collaborator.new(user_id: params[:user_id], wiki_id: params[:wiki_id])
+private
 
-    if @collaborator.destroy
-      flash[:notice] = "Collaborator removed from wiki."
-      redirect_to @wiki
-    else
-      flash[:error] = "There was an error deleting this collaborator. Please try again."
-    end
+  def set_wiki
+    @wiki = Wiki.find(params[:wiki_id])
   end
 end

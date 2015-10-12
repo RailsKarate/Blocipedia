@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :charges, only: [:new, :create]
 
   resources :users, only: [:show, :index] do
-    post 'premium_to_standard' => 'users#premium_to_standard', as: :premium_to_standard
+    post 'downgrade_account' => 'users#downgrade_account', as: :downgrade_account
   end
   
   # The priority is based upon order of creation: first created -> highest priority.

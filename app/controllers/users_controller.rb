@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
-  def downgrade 
+	
+  def downgrade_account
     current_user.update_attribute(:role, 'standard')
     
     current_user.wikis.each do |wiki|
-      wiki.update_attribute(:private, false)
+      wiki.update_attribute(:isprivate, false)
     end
-    redirect_to root_path
+    redirect_to wikis_path
   end 
   
 end

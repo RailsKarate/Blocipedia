@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   
   resources :wikis do
     get 'list', :on => :collection
-    resources :collaborators
+    resources :collaborators, only: [:create, :destroy, :new]
   end
 
   root to: 'welcome#index'

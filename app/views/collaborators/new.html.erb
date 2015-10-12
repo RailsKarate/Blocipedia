@@ -14,7 +14,14 @@
 			    <div class="form-group">
 			    	<tr>
 			    		<td><%= user.email %></td>
-			    		<td><%= button_to "Add Collaborator", wiki_collaborators_path(@wiki.id), params: { user_id: user.id } %></td>
+
+			    		<td>
+			    		<% if @wiki.users.include? user %>
+			    		<%= button_to "Remove Collaborator", wiki_collaborator_path(@wiki, @wiki.collaborator_for(user)), method: :delete, class: 'btn btn-danger' %>
+			    		<% else %>
+			    		<%= button_to "Add Collaborator", wiki_collaborators_path(@wiki, user_id: user.id), method: :post, class: 'btn btn-success'  %>
+			    		<% end %>
+			    		</td>
 			    	</tr>
 			    </div>
 			</div> 

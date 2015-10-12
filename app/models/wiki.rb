@@ -12,6 +12,10 @@ class Wiki < ActiveRecord::Base
   
   before_save :default_wiki_public
 
+def collaborator_for(user)
+  collaborators.where(user: user).first
+end
+
 def default_wiki_public
     if self.isprivate.nil?
       self.update_attribute :isprivate, false

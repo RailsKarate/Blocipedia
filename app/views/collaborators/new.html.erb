@@ -10,16 +10,16 @@
 		<tbody>	
 			<div class="field">
 			<% @user.each do |user| %>
-				
-			    <div class="form-group">
+	
+			    <div class="user">
 			    	<tr>
 			    		<td><%= user.email %></td>
 
-			    		<td>
+			    		<td id="<%= dom_id(user) %>">
 			    		<% if @wiki.users.include? user %>
-			    		<%= button_to "Remove Collaborator", wiki_collaborator_path(@wiki, @wiki.collaborator_for(user)), method: :delete, class: 'btn btn-danger' %>
+			    		<%= button_to "Remove Collaborator", wiki_collaborator_path(@wiki, @wiki.collaborator_for(user)), method: :delete%>
 			    		<% else %>
-			    		<%= button_to "Add Collaborator", wiki_collaborators_path(@wiki, user_id: user.id), method: :post, class: 'btn btn-success'  %>
+			    		<%= button_to "Add Collaborator", wiki_collaborators_path(@wiki, user_id: user.id), method: :post%>
 			    		<% end %>
 			    		</td>
 			    	</tr>

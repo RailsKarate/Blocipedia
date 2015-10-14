@@ -32,7 +32,12 @@
           <%= link_to "Add/Delete Collaborator", new_wiki_collaborator_path(@wiki), class: 'btn btn-primary' %>
           <% end %>
        </div>
-        
+       <h2>Collaborators</h2>
+    <% @wiki.users.each do |collaborator| %>
+      <p class="collaborator">
+        <%= collaborator.email %>
+      </p>
+      <% end %>      
       <% end %>
    </div>
  </div>

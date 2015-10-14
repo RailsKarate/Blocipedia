@@ -3,38 +3,36 @@ class ChargesController < ApplicationController
   before_action :validate_role
 
   def new
-  end
+   @stripe_btn_data = {
+     key: "#{ Rails.configuration.stripe[:publishable_key] }",
+     description: "Premium Membership",
+     amount: 15_00
+   }
+ end
 
-  def create
+ def create
+   customer = Stripe::Customer.create(
+     email: current_user.email,
+     card: params[:stripeToken]
+   )
+ 
+   charge = Stripe::Charge.create(
+     customer: customer.id, 
+     amount: 15_00,
+     description: "Premium Membership - #{current_user.email}",
+     currency: 'usd'
+   )
 
-    @amount = 1500
-    
-    # Creates a Stripe Customer object, for associating with the charge
-    customer = Stripe::Customer.create(
-      email: current_user.email,
-      card: params[:stripeToken]
-      )
+   current_user.update_attribute(:role, 'premium')
 
-    charge = Stripe::Charge.create(
-      customer: customer.id, # Note -- not user_id in app
-      amount: @amount,
-      description: "Premium Membership - #{current_user.email}",
-      currency: 'usd'
-      )
-
-    if current_user.update(role: 'premium')
-      flash[:success] = "Thank you for upgrading to Premium, #{current_user.email}!"
-      redirect_to edit_user_registration_path
-    else
-      flash[:error] = "There was an error upgrading your account."
-      redirect_to edit_user_registration_path
-    end
-
-    # Stripe will send back CardErrors, with friendly messages
-    rescue Stripe::CardError => e
-      flash[:error] = e.message
-      redirect_to new_charge_path
-  end
+   flash[:success] = "Congratulations, #{current_user.email}! Enjoy your new Premium membership."
+   redirect_to root_path 
+ 
+   rescue Stripe::CardError => e
+     flash[:error] = e.message
+     redirect_to new_charge_path
+   
+ end
 
   def validate_role
     if current_user
@@ -49,6 +47,5 @@ class ChargesController < ApplicationController
       flash[:notice] = "You must be signed in to perform that action"
     end
   end
-
 
 end

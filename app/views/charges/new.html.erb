@@ -1,10 +1,10 @@
 <%= form_tag charges_path do %>
-   <h4>Sign up for a Premium Account!</h4>
-   <h5>Create Private Wikis Only Other Premium Users Can See</h5>
+   <h1><strong>Upgrade to Premium!</strong></h1>
+   <h3>Join of Blocipedia's elite Premium members! With a Premium account, you'll be able to create your own private wikis, select collaborators, and collaborate on other private wikis. Upgrade your account with a one-time payment of just $15!</h3>
    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="Blocipedia Premium Membership"
-          data-amount="1500"></script>
+          data-key="<%= @stripe_btn_data[:key]%>"
+          data-description="<%= @stripe_btn_data[:description] %>"
+          data-amount=<%= @stripe_btn_data[:amount] %>></script>
  <% end %>
 
 <%= link_to 'Back', wikis_path %>

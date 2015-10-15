@@ -1,12 +1,19 @@
-<%= form_tag charges_path do %>
-   <h1><strong>Upgrade to Premium!</strong></h1>
-   <h3>Join of Blocipedia's elite Premium members! With a Premium account, you'll be able to create your own private wikis, select collaborators, and collaborate on other private wikis. Upgrade your account with a one-time payment of just $15!</h3>
-   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= @stripe_btn_data[:key]%>"
-          data-description="<%= @stripe_btn_data[:description] %>"
-          data-amount=<%= @stripe_btn_data[:amount] %>></script>
- <% end %>
-
-<%= link_to 'Back', wikis_path %>
-
-
+.row
+  .col-md-4
+    %h2 Blocipedia Free
+    %ul
+      %li
+        Create Unlimited Public Wikis
+      %li
+        View and Edit Other Public Wikis
+  .col-md-4
+    %h2 Blocipedia Premium
+    %h3 All of Blocipedia Free
+    %ul
+      %li
+        Create Unlimited Private Wikis
+      %li
+        Collaborate and Share Private Wikis
+= form_tag charges_path do
+  %h4 Click the Button!
+  %script.stripe-button{"data-amount" => @stripe_btn_data[:amount], "data-description" => @stripe_btn_data[:description], "data-key" => @stripe_btn_data[:key], :src => "https://checkout.stripe.com/checkout.js"}

@@ -25,7 +25,7 @@ class ChargesController < ApplicationController
 
    current_user.update_attribute(:role, 'premium')
 
-   flash[:success] = "Congratulations, #{current_user.email}! Enjoy your new Premium membership."
+   flash[:success] = "Congratulations, Enjoy your new Premium membership."
    redirect_to root_path 
  
    rescue Stripe::CardError => e

@@ -1,7 +1,7 @@
 class WikisController < ApplicationController
 
   def index
-    @wikis = policy_scope(Wiki)
+    @wikis = Kaminari.paginate_array(policy_scope(Wiki)).page(params[:page])
   end
 
   def show

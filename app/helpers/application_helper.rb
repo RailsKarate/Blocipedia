@@ -1,23 +1,8 @@
 module ApplicationHelper
-
-	def markdown(text)
-		options = {
-	      filter_html:     true,
-	      hard_wrap:       true, 
-	      link_attributes: { rel: 'nofollow', target: "_blank" },
-	      space_after_headers: true, 
-	      fenced_code_blocks: true
-    	}
-
-   		 extensions = {
-	      autolink:           true,
-	      superscript:        true,
-	      disable_indented_code_blocks: true
-    	}
-
-	    renderer = Redcarpet::Render::HTML.new(options)
-	    markdown = Redcarpet::Markdown.new(renderer, extensions)
-
-	    markdown.render(text).html_safe
-	end
+def markdown_to_html(markdown)
+	    renderer = Redcarpet::Render::HTML.new
+	    extensions = { fenced_code_blocks: true, prettify: true, line_numbers: true }
+	    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
+	    (redcarpet.render markdown).html_safe
+  	end
 end

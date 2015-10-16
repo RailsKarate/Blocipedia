@@ -4,7 +4,7 @@
 		<thead>
 			<tr>
 				<th>Email</th>
-				<th>Add Collaborator</th>
+				<th>Add/Delete Collaborator</th>
 			</tr>
 		</thead>
 		<tbody>	
@@ -13,14 +13,16 @@
 	
 			    <div class="user">
 			    	<tr>
-			    		<td><%= user.email %></td>
+			    		<% if  @wiki.user != user %>
+				    		<td><%= user.email %></td>
 
-			    		<td id="<%= dom_id(user) %>">
-			    		<% if @wiki.users.include? user %>
-			    		<%= button_to "Remove Collaborator", wiki_collaborator_path(@wiki, @wiki.collaborator_for(user)), method: :delete%>
-			    		<% else %>
-			    		<%= button_to "Add Collaborator", wiki_collaborators_path(@wiki, user_id: user.id), method: :post%>
-			    		<% end %>
+				    		<td id="<%= dom_id(user) %>">
+				    		<% if @wiki.users.include? user %>
+				    		<%= button_to "Remove Collaborator", wiki_collaborator_path(@wiki, @wiki.collaborator_for(user)), method: :delete%>
+				    		<% else %>
+				    		<%= button_to "Add Collaborator", wiki_collaborators_path(@wiki, user_id: user.id), method: :post%>
+				    		<% end %>
+				    	<% end %>
 			    		</td>
 			    	</tr>
 			    </div>

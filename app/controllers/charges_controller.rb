@@ -44,7 +44,7 @@ class ChargesController < ApplicationController
       end
     else
       redirect_to new_user_session_path
-      flash[:notice] = "You must be signed in to perform that action"
+      flash[:notice] = "Create an account and enjoy Blocipedia!"
     end
   end
 

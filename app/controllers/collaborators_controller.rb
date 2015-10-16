@@ -1,5 +1,6 @@
 class CollaboratorsController < ApplicationController
-   before_action :set_wiki
+  before_filter :authenticate_user!
+  before_action :set_wiki
 
   def new
     @collaborator = Collaborator.new

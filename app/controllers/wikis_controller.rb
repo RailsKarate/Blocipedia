@@ -1,5 +1,5 @@
 class WikisController < ApplicationController
-
+  before_filter :authenticate_user!, :except => [:show, :index]
   def index
     @wikis = Kaminari.paginate_array(policy_scope(Wiki)).page(params[:page])
   end

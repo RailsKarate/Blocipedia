@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+	before_filter :authenticate_user!
 	def show
 		@user = User.find(params[:id])
 		@wikis = @user.wikis.public_wikis(@user)

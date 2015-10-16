@@ -4,7 +4,9 @@
       %h1 Blocipedia
 .container.cont-border
   .jumbotron.jumbo-content
-    %h2 Create and Share Markdown Wikis
+  %center
+    %h2 Create and Edit Wikis Now
+    %h2 So sign up for Blocipedia Today!
     %br/
     - if current_user == nil
       = link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary'

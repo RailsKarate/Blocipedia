@@ -11,7 +11,7 @@ class CollaboratorsController < ApplicationController
     @collaborator = Collaborator.new(wiki_id: @wiki.id, user_id: params[:user_id])
     if @collaborator.save
       flash[:notice] = "Your wiki was updated."
-      redirect_to edit_wiki_path(@wiki)
+      redirect_to wiki_path(@wiki)
     else
       flash[:error] = "There was an error updating your wiki. Please try again."
       render :new
@@ -22,7 +22,7 @@ class CollaboratorsController < ApplicationController
     @collaborator = Collaborator.find(params[:id])
     if @collaborator.destroy
       flash[:notice] = "Wiki was sucessfully updated."
-      redirect_to edit_wiki_path(@wiki)
+      redirect_to wiki_path(@wiki)
     else
       flash[:error] = "There was an error. Please try again."
       render :show

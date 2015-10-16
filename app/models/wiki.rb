@@ -12,6 +12,9 @@ class Wiki < ActiveRecord::Base
   
   before_save :default_wiki_public
 
+  scope :private_wikis, -> (user) { where(isprivate: true) }
+  scope :public_wikis, -> (user) { where(isprivate: false) }
+
 def collaborator_for(user)
   collaborators.where(user: user).first
 end

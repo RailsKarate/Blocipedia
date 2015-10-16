@@ -17,12 +17,9 @@
         = f.label :body
         = f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body"
       .form-group
-        - if premium_or_admin(current_user)
-          = f.check_box :private
+        - if premium_or_admin(current_user) && current_user == @wiki.user
+          = f.check_box :isprivate
           %strong Private
-      .form-group
-        - if premium_or_admin(current_user)
-          = f.label :collaborators
-          = f.collection_check_boxes(:collaborator_ids, @users, :id, :name, class: 'check_box')
+      
       .form-group
         = f.submit "Save", class: 'btn btn-success'

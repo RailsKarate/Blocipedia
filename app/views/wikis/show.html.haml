@@ -1,7 +1,7 @@
 .container
   .row
     .col-md-3
-      - if premium_or_admin(current_user)
+      - if premium_or_admin(current_user) || current_user.role == 'standard'
         %h3 Collaborators
         = render @collaborators
     .col-md-6
@@ -9,3 +9,11 @@
       %p= markdown_to_html @wiki.body
       - if policy(@wiki).update?
         = link_to "Edit Wiki", edit_wiki_path(@wiki), class: 'btn btn-success'
+
+      -if @wiki.isprivate == false
+        = link_to "Public", wiki_path, class: 'btn btn-success'
+      -else
+        = link_to "Private", wiki_path,class: 'btn btn-success'
+
+      -if premium_or_admin(current_user) && current_user == @wiki.user
+        =link_to "Add/Delete Collaborator", new_wiki_collaborator_path(@wiki), class: 'btn btn-success'

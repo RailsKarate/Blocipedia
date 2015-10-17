@@ -9,8 +9,9 @@ describe "creating wiki" do
 		options[:isprivate] ||= false		
 
 		visit "/wikis"
-		click_link "Create A New Wiki"
-		expect(page).to have_content("Create A New Wiki")
+		click_link "Home"
+		click_link "Create"
+		expect(page).to have_content("Create a New Wiki")
 
 		fill_in "Title", with: options[:title]
 		fill_in "Body", with: options[:body]

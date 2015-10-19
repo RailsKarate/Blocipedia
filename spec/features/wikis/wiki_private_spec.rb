@@ -17,10 +17,10 @@ describe "wiki private" do
 		visit "/wikis"
 		expect(Wiki.count).to eq(2)
 
-		within "table" do
+		
 			expect(page).to_not have_content(wiki.title)
 			expect(page).to have_content(other_wiki.title)
-		end
+		
 	end	
 
 	it "you see the private wiki and public in the wikis index for user role premium" do
@@ -30,9 +30,8 @@ describe "wiki private" do
 		visit "/wikis"
 		expect(Wiki.count).to eq(2)
 
-		within "table" do
 			expect(page).to have_content(wiki.title)
 			expect(page).to have_content(other_wiki.title)
-		end
+	
 	end	
 end

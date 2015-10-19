@@ -14,11 +14,11 @@ describe "Updating wikis" do
 
 		click_link wiki.title, wiki
 
-		click_link "Edit"
+		click_link "Edit Wiki"
 
 		fill_in "Title", with: options[:title]
 		fill_in "Body", with: options[:body]
-		click_button "Update Wiki"
+		click_button "Save"
 	end
 
 	before do

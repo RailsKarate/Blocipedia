@@ -4,7 +4,7 @@ describe "Logging In" do
 	it "logs the user in and goes to the wikis" do
 		User.create(first_name: "Pedro", email: "pedro@gmail.com", password: "pedro12345", password_confirmation: "pedro12345")
 		visit "/"
-		click_link "Log In"
+		click_link "Sign In"
 		fill_in "Email", with: "pedro@gmail.com"
     	fill_in "Password", with: "pedro12345"
     	
@@ -13,7 +13,7 @@ describe "Logging In" do
 
 	it "diplays the email address in the event of a failed login" do
 	    visit "/"
-	    click_link "Log In"
+	    click_link "Sign In"
 	    fill_in "Email", with: "pedro@gmail.com"
 	    fill_in "Password", with: "incorrect"
 	    click_button "Log in"

@@ -12,9 +12,8 @@ describe "Downgrade user" do
 	it "Downgrade your account to standard" do 
 		user.update(role: 'premium')
 
-		visit "/wikis"
-		expect(page).to have_content("Change your password?")
-		click_link "Change your password?"
+		visit "/users/edit"
+
 		expect(page).to have_content("Downgrade to Standard")
 		
 		click_link "Downgrade to Standard"

@@ -14,17 +14,12 @@ describe "Collaborators user" do
 		visit "/wikis"
 
 		click_link wiki.title, wiki	
-
-		click_link "Edit"
 		expect(page).to have_content("Add/Delete Collaborator")
-
 		click_link "Add/Delete Collaborator"
 		
 		within "#user_2" do
 			click_button "Add Collaborator"
 		end
-
-		expect(page).to have_content(other_user.email)
 	end
 
 	def remove_standard_collaborator
@@ -55,9 +50,7 @@ describe "Collaborators user" do
 		login_as(other_user, scope: :user)
 		visit "/wikis"
 
-		within "table" do
-			expect(page).to have_content(wiki.title)
-		end
+		expect(page).to have_content(wiki.title)
 	end
 
 	it "you can edit the private wiki" do
@@ -67,7 +60,7 @@ describe "Collaborators user" do
 		visit "/wikis"
 
 		click_link wiki.title, wiki	
-		click_link "Edit"
+		click_link "Edit Wiki"
 						
 		wiki.update(title: "New title", 
 					body: "New body")
@@ -84,9 +77,7 @@ describe "Collaborators user" do
 		login_as(other_user, scope: :user)
 		visit "/wikis"
 
-		within "table" do
-			expect(page).to_not have_content(wiki.title)
-		end
+		expect(page).to_not have_content(wiki.title)	
 	end
 
 	it "you can't edit the private wiki" do
@@ -96,7 +87,7 @@ describe "Collaborators user" do
 		visit "/wikis"
 
 		expect(page).to_not have_link wiki.title
-		expect(page).to_not have_link "Edit"
+		expect(page).to_not have_link "Edit Wiki"
 		
 	end
 

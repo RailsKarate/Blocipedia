@@ -17,7 +17,7 @@ gem 'pundit'
 gem 'stripe'
 gem 'haml'
 gem 'redcarpet'
-gem 'friendly_id'
+gem 'friendly_id', '~> 5.0.3'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

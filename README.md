@@ -26,6 +26,11 @@ cd Blocipedia
 bundle install
 ```
 
+* Set up your database
+```
+rake db:create db:migrate
+```
+
 * Then you should be able to run the rails server
 ```
 rails s

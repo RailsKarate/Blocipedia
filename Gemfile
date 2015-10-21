@@ -19,6 +19,7 @@ gem 'haml'
 gem 'redcarpet'
 gem 'friendly_id'
 
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -45,6 +46,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.3'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'byebug'
+  gem "figaro"
 end
 
 group :test do

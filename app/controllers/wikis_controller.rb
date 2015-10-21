@@ -1,11 +1,12 @@
 class WikisController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
-  def index
+ 
+ def index
     @wikis = Kaminari.paginate_array(policy_scope(Wiki)).page(params[:page])
   end
 
   def show
-    @wiki = Wiki.find(params[:id])
+    @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
     @collaborators = @wiki.users
   end
@@ -32,12 +33,12 @@ class WikisController < ApplicationController
   end
 
   def edit
-    @wiki = Wiki.find(params[:id])
+    @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
   end
 
   def update
-    @wiki = Wiki.find(params[:id])
+    @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
     if @wiki.update_attributes(wiki_params)
       flash[:notice] = "Wiki was successfully updated." 
@@ -49,7 +50,7 @@ class WikisController < ApplicationController
   end
 
   def destroy
-    @wiki = Wiki.find(params[:id])
+    @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
     if @wiki.destroy
       flash[:notice] = "Successfully deleted your Wiki."

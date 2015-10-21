@@ -15,14 +15,21 @@ class Wiki < ActiveRecord::Base
   scope :private_wikis, -> (user) { where(isprivate: true) }
   scope :public_wikis, -> (user) { where(isprivate: false) }
 
-def collaborator_for(user)
-  collaborators.where(user: user).first
-end
+  extend FriendlyId
+  friendly_id :title, use: :slugged
 
-def default_wiki_public
-    if self.isprivate.nil?
-      self.update_attribute :isprivate, false
-    end
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
+
+  def collaborator_for(user)
+    collaborators.where(user: user).first
+  end
+
+  def default_wiki_public
+      if self.isprivate.nil?
+        self.update_attribute :isprivate, false
+      end
   end
 
 end
